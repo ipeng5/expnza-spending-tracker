@@ -22,7 +22,7 @@ function App() {
 
 export default App;
 
-const Root = function () {
+function Root() {
   const isAuthenticated = !!localStorage.getItem("token");
 
   return isAuthenticated ? (
@@ -30,4 +30,4 @@ const Root = function () {
   ) : (
     <Navigate to="/login" />
   );
-};
+}
