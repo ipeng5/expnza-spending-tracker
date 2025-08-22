@@ -38,7 +38,7 @@ function AvatarSelector({ image, setImage }) {
           <LuUser className="text-4xl text-primary" />
           <button
             type="button"
-            className="w-8 h-8 flex items-center justify-center bg-primary text-white rounded-full absolute -bottom-1 -right-1"
+            className="w-8 h-8 flex items-center justify-center bg-primary text-white rounded-full absolute -bottom-1 -right-1 hover:cursor-pointer transition"
             onClick={onChooseFile}
           >
             <LuUpload />
@@ -53,7 +53,7 @@ function AvatarSelector({ image, setImage }) {
           />
           <button
             type="button"
-            className="w-8 h-8 flex items-center justify-center bg-red-500 text-white rounded-full absolute -bottom-1 -right-1"
+            className="w-8 h-8 flex items-center justify-center bg-red-500 text-white rounded-full absolute -bottom-1 -right-1 hover:cursor-pointer transition"
             onClick={handleRemoveImage}
           >
             <LuTrash />
