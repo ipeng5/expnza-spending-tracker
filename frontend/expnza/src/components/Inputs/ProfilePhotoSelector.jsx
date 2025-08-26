@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { LuUser, LuUpload, LuTrash } from "react-icons/lu";
 
-function AvatarSelector({ image, setImage }) {
+function ProfilePhotoSelector({ image, setImage }) {
   const inputRef = useRef(null);
   const [previewUrl, setPreviewUrl] = useState(null);
 
@@ -64,4 +64,4 @@ function AvatarSelector({ image, setImage }) {
   );
 }
 
-export default AvatarSelector;
+export default ProfilePhotoSelector;
