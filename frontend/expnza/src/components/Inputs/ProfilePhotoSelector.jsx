@@ -38,7 +38,7 @@ function ProfilePhotoSelector({ image, setImage }) {
           <LuUser className="text-4xl text-primary" />
           <button
             type="button"
-            className="w-8 h-8 flex items-center justify-center bg-primary text-white rounded-full absolute -bottom-1 -right-1 hover:cursor-pointer transition"
+            className="w-8 h-8 flex items-center justify-center bg-primary text-white rounded-full absolute -bottom-1 -right-1 hover:cursor-pointer"
             onClick={onChooseFile}
           >
             <LuUpload />
@@ -53,7 +53,7 @@ function ProfilePhotoSelector({ image, setImage }) {
           />
           <button
             type="button"
-            className="w-8 h-8 flex items-center justify-center bg-red-500 text-white rounded-full absolute -bottom-1 -right-1 hover:cursor-pointer transition"
+            className="w-8 h-8 flex items-center justify-center bg-red-500 text-white rounded-full absolute -bottom-1 -right-1 hover:cursor-pointer"
             onClick={handleRemoveImage}
           >
             <LuTrash />
