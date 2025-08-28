@@ -19,7 +19,7 @@ function Navbar({ activeMenu }) {
           <HiOutlineMenu className="text-2xl" />
         )}
       </button>
-      <h2 className="text-lg font-medium text-black">Spending Tracker</h2>
+      <h2 className="text-5xl font-medium text-black logo-font">expnza</h2>
       {openSideMenu && (
         <div className="fixed top-[61px] -ml-4 bg-white">
           <SideMenu activeMenu={activeMenu} />
