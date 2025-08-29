@@ -12,6 +12,7 @@ function TransactionInfoCard({
   amount,
   type,
   hideDeleteBtn,
+  onDelete,
 }) {
   function getAmountStyles() {
     return type === "income"
@@ -20,32 +21,31 @@ function TransactionInfoCard({
   }
 
   return (
-    <div className="group relative flex items-center gap-4 mt-2 p-2 rounded-lg hover:bg-gray-100/60">
-      <div className="w-12 h-12 flex items-center justify-center text-xl text-gray-800 bg-gray-100 rounded-full">
+    <div className="group relative mt-2 flex items-center gap-4 rounded-lg p-2 hover:bg-gray-100/60">
+      <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gray-100 text-xl text-gray-800">
         {icon ? (
-          <img src={icon} alt={title} className="w-6 h-6" />
+          <img src={icon} alt={title} className="h-6 w-6" />
         ) : (
           <LuUtensils />
         )}
       </div>
-      <div className="flex-1 flex items-center justify-between">
+      <div className="flex flex-1 items-center justify-between">
         <div>
-          <p className="text-sm text-gray-700 font-medium">{title}</p>
-          <p className="text-xs text-gray-400 mt-1">{date}</p>
+          <p className="text-sm font-medium text-gray-700">{title}</p>
+          <p className="mt-1 text-xs text-gray-400">{date}</p>
         </div>
         <div className="flex items-center gap-2">
           {!hideDeleteBtn && (
             <button
-              className="text-gray-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
+              className="cursor-pointer text-gray-400 opacity-0 transition-opacity group-hover:opacity-100 hover:text-red-500"
               onClick={onDelete}
             >
               <LuTrash2 size={18} />
-              test
             </button>
           )}
 
           <div
-            className={`flex items-center gap-2 px-3 py-1.5 rounded-md ${getAmountStyles()}`}
+            className={`flex items-center gap-2 rounded-md px-3 py-1.5 ${getAmountStyles()}`}
           >
             <h6 className="text-xs font-medium">
               {type === "income" ? "+" : "-"} €{amount}

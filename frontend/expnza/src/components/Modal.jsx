@@ -2,9 +2,9 @@ function Modal({ children, isOpen, onClose, title }) {
   if (!isOpen) return null;
 
   return (
-    <div className="bg-opacity-50 fixed top-0 right-0 left-0 z-50 flex h-[calc(100%-1rem)] max-h-full w-full items-center justify-center overflow-x-hidden overflow-y-auto bg-black/20">
+    <div className="animate-fadeIn fixed inset-0 z-50 flex items-center justify-center bg-black/20 transition-opacity duration-300 ease-out">
       <div className="relative max-h-full w-full max-w-2xl p-4">
-        <div className="relative rounded-lg bg-white shadow-sm">
+        <div className="animate-scaleIn relative transform rounded-lg bg-white shadow-sm transition-all duration-300 ease-out">
           <div className="flex items-center justify-between rounded-t border-b border-gray-200 p-4 md:p-5">
             <h3 className="text-lg font-medium text-gray-900">{title}</h3>
             <button
