@@ -5,7 +5,6 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
-  Legend,
   ResponsiveContainer,
   Cell,
 } from "recharts";
@@ -17,11 +16,11 @@ function getBarColor(index) {
 function CustomTooltip({ active, payload }) {
   if (active && payload && payload.length) {
     return (
-      <div className="bg-white shadow-md rounded-lg p-2 border border-gray-300">
-        <p className="text-xs font-semibold text-indigo-800 mb-1">
+      <div className="rounded-lg border border-gray-300 bg-white p-2 shadow-md">
+        <p className="mb-1 text-xs font-semibold text-indigo-800">
           {payload[0].payload.category}
         </p>
-        <p className="text-sm  text-gray-600 ">
+        <p className="text-sm text-gray-600">
           Amount:{" "}
           <span className="text-sm font-medium text-gray-900">
             €{payload[0].payload.amount}
@@ -35,7 +34,7 @@ function CustomTooltip({ active, payload }) {
 
 function CustomBarChart({ data }) {
   return (
-    <div className="bg-white mt-6">
+    <div className="mt-6 bg-white">
       <ResponsiveContainer width="100%" height={300}>
         <BarChart data={data}>
           <CartesianGrid stroke="none" />

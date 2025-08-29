@@ -34,7 +34,7 @@ function Income() {
         setIncomeData(response.data);
       }
     } catch (err) {
-      console.log("Something went wrong. Please try again.");
+      console.log("Something went wrong. Please try again:", err.message);
     } finally {
       setIsLoading(false);
     }
@@ -44,7 +44,7 @@ function Income() {
     const { source, amount, date, icon } = income;
 
     if (!source.trim()) {
-      toast.error("Source is required");
+      toast.error("Source is required.");
       return;
     }
 

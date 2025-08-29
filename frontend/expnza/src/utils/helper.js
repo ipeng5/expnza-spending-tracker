@@ -47,15 +47,14 @@ export function prepareRecentIncomeChartData(data = []) {
   return dataArr;
 }
 
-export function prepareIncomeBarChartData(data = []) {
+export function prepareChartData(data = [], fieldName = "source") {
   const sortedData = [...data].sort(
-    (a, b) => new Date(a.date) - new Date(b.date)
+    (a, b) => new Date(a.date) - new Date(b.date),
   );
-  const chartData = sortedData.map((item) => ({
+
+  return sortedData.map((item) => ({
     month: moment(item?.date).format("Do MMM"),
     amount: item?.amount,
-    source: item?.source,
+    [fieldName]: item?.[fieldName], // dynamic key
   }));
-
-  return chartData;
 }
