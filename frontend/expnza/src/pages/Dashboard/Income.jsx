@@ -5,6 +5,7 @@ import axiosInstance from "../../utils/axiosInstance";
 import { API_PATHS } from "../../utils/apiPaths";
 import Modal from "../../components/Modal";
 import AddIncomeForm from "../../components/Income/AddIncomeForm";
+import toast from "react-hot-toast";
 
 function Income() {
   const [incomeData, setIncomeData] = useState([]);
@@ -34,7 +35,42 @@ function Income() {
     }
   }
 
-  async function handleAddIncome(income) {}
+  async function handleAddIncome(income) {
+    const { source, amount, date, icon } = income;
+
+    if (!source.trim()) {
+      toast.error("Source is required");
+      return;
+    }
+
+    if (!amount || isNaN(amount)) {
+      toast.error("Amount should be a valid number greater than 0.");
+      return;
+    }
+
+    if (!date) {
+      toast.error("Date is required");
+      return;
+    }
+
+    try {
+      await axiosInstance.post(API_PATHS.INCOME.ADD_INCOME, {
+        source,
+        amount,
+        date,
+        icon,
+      });
+
+      setOpenAddIncomeModal(false);
+      toast.success("Income added successfully");
+      fetchIncomeDetails();
+    } catch (err) {
+      console.error(
+        "Error adding income",
+        err.response?.data?.message || err.message,
+      );
+    }
+  }
 
   async function deleteIncome(id) {}
 

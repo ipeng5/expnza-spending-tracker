@@ -39,9 +39,9 @@
 }
 
 .add-btn {
-  @apply flex cursor-pointer items-center gap-1.5 rounded-lg border border-indigo-100 bg-indigo-50 px-4 py-2 text-xs font-medium whitespace-nowrap text-indigo-600 md:text-sm;
+  @apply flex cursor-pointer items-center gap-1.5 rounded-lg border border-indigo-100 bg-indigo-50 px-4 py-2 text-xs font-medium whitespace-nowrap text-indigo-600 transition-colors duration-200 ease-in-out hover:bg-indigo-100/85 hover:text-indigo-600/85 md:text-sm;
 }
 
 .add-btn-fill {
-  @apply bg-primary text-white;
+  @apply bg-primary hover:bg-primary/90 text-white hover:text-white;
 }
