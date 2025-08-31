@@ -7,31 +7,13 @@ import {
   Area,
   AreaChart,
 } from "recharts";
+import CustomTooltip from "./CustomTooltip";
 
 function getBarColor(index) {
   return index % 2 === 0 ? "#4f46e5" : "#c7d2fe";
 }
 
 function CustomLineChart({ data }) {
-  function CustomTooltip({ active, payload }) {
-    if (active && payload && payload.length) {
-      return (
-        <div className="rounded-lg border border-gray-300 bg-white p-2 shadow-md">
-          <p className="mb-1 text-xs font-semibold text-indigo-800">
-            {payload[0].payload.category}
-          </p>
-          <p className="text-sm text-gray-600">
-            Amount:{" "}
-            <span className="text-sm font-medium text-gray-900">
-              €{payload[0].payload.amount}
-            </span>
-          </p>
-        </div>
-      );
-    }
-    return null;
-  }
-
   return (
     <div className="mt-6 bg-white">
       <ResponsiveContainer width="100%" height={300}>
@@ -49,7 +31,9 @@ function CustomLineChart({ data }) {
             stroke="none"
           />
           <YAxis tick={{ fontSize: 12, fill: "#555" }} stroke="none" />
-          <Tooltip content={CustomTooltip} />
+          <Tooltip
+            content={<CustomTooltip nameKey="month" valueKey="amount" />}
+          />
           <Area
             type="monotone"
             dataKey="amount"
