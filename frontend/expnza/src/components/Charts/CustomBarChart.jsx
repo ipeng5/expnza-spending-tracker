@@ -32,15 +32,15 @@ function CustomTooltip({ active, payload }) {
   return null;
 }
 
-function CustomBarChart({ data }) {
+function CustomBarChart({ data, xKey = "category", showXAxisText = true }) {
   return (
     <div className="mt-6 bg-white">
       <ResponsiveContainer width="100%" height={300}>
         <BarChart data={data}>
           <CartesianGrid stroke="none" />
           <XAxis
-            dataKey="month"
-            tick={{ fontSize: 12, fill: "#555" }}
+            dataKey={xKey}
+            tick={showXAxisText ? { fontSize: 12, fill: "#555" } : false}
             stroke="none"
           />
           <YAxis tick={{ fontSize: 12, fill: "#555" }} stroke="none" />

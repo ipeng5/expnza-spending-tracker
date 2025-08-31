@@ -26,7 +26,7 @@ function IncomeOverview({ transactions, onAddIncome }) {
         </button>
       </div>
       <div className="mt-10">
-        <CustomBarChart data={chartData} />
+        <CustomBarChart data={chartData} xKey="month" showXAxisText={true} />
       </div>
     </div>
   );
