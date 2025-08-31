@@ -75,15 +75,15 @@ function SignUp() {
 
   return (
     <AuthLayout>
-      <div className="lg:w-[100%] h-auto md:h-full mt-10 md:mt-0 flex flex-col justify-center">
+      <div className="mt-10 flex h-auto flex-col justify-center md:mt-0 md:h-full lg:w-[100%]">
         <h3 className="text-xl font-semibold text-black">Create an Account</h3>
-        <p className="text-sm text-slate-700 mt-[5px] mb-6">
+        <p className="mt-[5px] mb-6 text-sm text-slate-700">
           Join now and start managing your expenses today!
         </p>
 
         <form onSubmit={handleSignUp}>
           <ProfilePhotoSelector image={profilePic} setImage={setProfilePic} />
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="flex flex-col gap-4 md:grid md:grid-cols-2 md:gap-4">
             <Input
               value={fullName}
               onChange={({ target }) => setFullName(target.value)}
@@ -109,15 +109,15 @@ function SignUp() {
             </div>
           </div>
 
-          {error && <p className="text-red-500 text-xs pb-2.5 ">{error}</p>}
+          {error && <p className="pb-2.5 text-xs text-red-500">{error}</p>}
 
           <button type="submit" className="btn-primary">
             SIGN UP
           </button>
 
-          <p className="text-[13px] text-slate-800 mt-3">
+          <p className="mt-3 text-[13px] text-slate-800">
             Already have an account?{" "}
-            <Link className="font-medium text-primary underline" to="/login">
+            <Link className="text-primary font-medium underline" to="/login">
               Login
             </Link>
           </p>

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import DashboardLayout from "../../components/layouts/DashboardLayout";
 import { useUserAuth } from "../../hooks/useUserAuth";
 import { API_PATHS } from "../../utils/apiPaths";
@@ -19,16 +19,17 @@ function Home() {
   useUserAuth();
 
   const [dashboardData, setDashboardData] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const isLoadingRef = useRef(false);
 
   const navigate = useNavigate();
 
   const fetchDashboardData = useCallback(async () => {
-    if (isLoading) return;
-    setIsLoading(true);
+    if (isLoadingRef.current) return;
+    isLoadingRef.current = true;
+
     try {
       const response = await axiosInstance.get(
-        `${API_PATHS.DASHBOARD.GET_DATA}`
+        `${API_PATHS.DASHBOARD.GET_DATA}`,
       );
 
       if (response.data) {
@@ -37,19 +38,18 @@ function Home() {
     } catch (err) {
       console.log("Something went wrong. Please try again.", err);
     } finally {
-      setIsLoading(false);
+      isLoadingRef.current = false;
     }
-  }, [isLoading]);
+  }, []);
 
   useEffect(() => {
     fetchDashboardData();
-    return () => {};
   }, [fetchDashboardData]);
 
   return (
     <DashboardLayout activeMenu="Dashboard">
-      <div className="my-5 mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="mx-auto my-5">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
           <InfoCard
             icon={<IoMdCard />}
             label="Total Balance"
@@ -69,7 +69,7 @@ function Home() {
             color="bg-red-500"
           />
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+        <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-2">
           <RecentTransactions
             transactions={dashboardData?.recentTransactions}
             onSeeMore={() => navigate("/expense")}
