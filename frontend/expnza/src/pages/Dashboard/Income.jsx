@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import DashboardLayout from "../../components/layouts/DashboardLayout";
 import IncomeOverview from "../../components/Income/IncomeOverview";
 import axiosInstance from "../../utils/axiosInstance";
@@ -14,16 +14,16 @@ function Income() {
   useUserAuth();
 
   const [incomeData, setIncomeData] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const isLoadingRef = useRef(false);
   const [openDeleteAlert, setOpenDeleteAlert] = useState({
     show: false,
     data: null,
   });
   const [openAddIncomeModal, setOpenAddIncomeModal] = useState(false);
 
-  async function fetchIncomeDetails() {
-    if (isLoading) return;
-    setIsLoading(true);
+  const fetchIncomeDetails = useCallback(async () => {
+    if (isLoadingRef.current) return;
+    isLoadingRef.current = true;
 
     try {
       const response = await axiosInstance.get(
@@ -36,9 +36,9 @@ function Income() {
     } catch (err) {
       console.log("Something went wrong. Please try again:", err.message);
     } finally {
-      setIsLoading(false);
+      isLoadingRef.current = false;
     }
-  }
+  }, []);
 
   async function handleAddIncome(income) {
     const { source, amount, date, icon } = income;
@@ -117,7 +117,7 @@ function Income() {
 
   useEffect(() => {
     fetchIncomeDetails();
-  }, []);
+  }, [fetchIncomeDetails]);
 
   return (
     <DashboardLayout activeMenu="Income">

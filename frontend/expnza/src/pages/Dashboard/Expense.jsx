@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import DashboardLayout from "../../components/layouts/DashboardLayout";
 import { useUserAuth } from "../../hooks/useUserAuth";
 import axiosInstance from "../../utils/axiosInstance";
@@ -14,31 +14,28 @@ function Expense() {
   useUserAuth();
 
   const [expenseData, setExpenseData] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const isLoadingRef = useRef(false);
   const [openDeleteAlert, setOpenDeleteAlert] = useState({
     show: false,
     data: null,
   });
   const [openAddExpenseModal, setOpenAddExpenseModal] = useState(false);
 
-  async function fetchExpenseDetails() {
-    if (isLoading) return;
-    setIsLoading(true);
+  const fetchExpenseDetails = useCallback(async () => {
+    if (isLoadingRef.current) return;
+    isLoadingRef.current = true;
 
     try {
       const response = await axiosInstance.get(
-        `${API_PATHS.EXPENSE.GET_ALL_EXPENSE}`,
+        API_PATHS.EXPENSE.GET_ALL_EXPENSE,
       );
-
-      if (response.data) {
-        setExpenseData(response.data);
-      }
+      if (response.data) setExpenseData(response.data);
     } catch (err) {
-      console.log("Something went wrong. Please try again:", err.message);
+      console.error("Something went wrong. Please try again:", err.message);
     } finally {
-      setIsLoading(false);
+      isLoadingRef.current = false;
     }
-  }
+  }, []);
 
   async function handleAddExpense(expense) {
     const { category, amount, date, icon } = expense;
@@ -117,7 +114,7 @@ function Expense() {
 
   useEffect(() => {
     fetchExpenseDetails();
-  }, []);
+  }, [fetchExpenseDetails]);
 
   return (
     <DashboardLayout activeMenu="Expense">

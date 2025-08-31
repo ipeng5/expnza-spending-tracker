@@ -9,10 +9,6 @@ import {
 } from "recharts";
 import CustomTooltip from "./CustomTooltip";
 
-function getBarColor(index) {
-  return index % 2 === 0 ? "#4f46e5" : "#c7d2fe";
-}
-
 function CustomLineChart({ data }) {
   return (
     <div className="mt-6 bg-white">
