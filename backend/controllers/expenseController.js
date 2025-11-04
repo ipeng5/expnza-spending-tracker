@@ -1,5 +1,5 @@
 import Expense from "../models/Expense.js";
-import ExcelJS from "exceljs";
+import { generateExcelFile } from "../utils/excelHelper.js";
 
 export const addExpense = async (req, res) => {
   const userId = req.user.id;
@@ -52,34 +52,19 @@ export const downloadExpenseExcel = async (req, res) => {
   try {
     const expense = await Expense.find({ userId }).sort({ date: -1 });
 
-    const workbook = new ExcelJS.Workbook();
-    const worksheet = workbook.addWorksheet("Expense");
-
-    worksheet.columns = [
+    const columns = [
       { header: "Category", key: "category", width: 25 },
       { header: "Amount", key: "amount", width: 15 },
       { header: "Date", key: "date", width: 20 },
     ];
 
-    expense.forEach((item) => {
-      worksheet.addRow({
-        category: item.category,
-        amount: item.amount,
-        date: item.date instanceof Date ? item.date : new Date(item.date),
-      });
-    });
-
-    const buffer = await workbook.xlsx.writeBuffer();
-
-    res.setHeader(
-      "Content-Type",
-      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    await generateExcelFile(
+      expense,
+      columns,
+      "Expense",
+      "expense_details.xlsx",
+      res
     );
-    res.setHeader(
-      "Content-Disposition",
-      'attachment; filename="expense_details.xlsx"'
-    );
-    res.send(Buffer.from(buffer));
   } catch (err) {
     res.status(500).json({ message: "Server error" });
   }

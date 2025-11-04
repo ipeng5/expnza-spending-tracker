@@ -1,5 +1,5 @@
 import Income from "../models/Income.js";
-import ExcelJS from "exceljs";
+import { generateExcelFile } from "../utils/excelHelper.js";
 
 export const addIncome = async (req, res) => {
   const userId = req.user.id;
@@ -52,34 +52,19 @@ export const downloadIncomeExcel = async (req, res) => {
   try {
     const income = await Income.find({ userId }).sort({ date: -1 });
 
-    const workbook = new ExcelJS.Workbook();
-    const worksheet = workbook.addWorksheet("Income");
-
-    worksheet.columns = [
+    const columns = [
       { header: "Source", key: "source", width: 30 },
       { header: "Amount", key: "amount", width: 15 },
       { header: "Date", key: "date", width: 20 },
     ];
 
-    income.forEach((item) => {
-      worksheet.addRow({
-        source: item.source,
-        amount: item.amount,
-        date: item.date instanceof Date ? item.date : new Date(item.date),
-      });
-    });
-
-    const buffer = await workbook.xlsx.writeBuffer();
-
-    res.setHeader(
-      "Content-Type",
-      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    await generateExcelFile(
+      income,
+      columns,
+      "Income",
+      "income_details.xlsx",
+      res
     );
-    res.setHeader(
-      "Content-Disposition",
-      'attachment; filename="income_details.xlsx"'
-    );
-    res.send(Buffer.from(buffer));
   } catch (err) {
     res.status(500).json({ message: "Server error" });
   }

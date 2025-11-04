@@ -9,6 +9,7 @@ import AddExpenseForm from "../../components/Expense/AddExpenseForm";
 import Modal from "../../components/Modal";
 import ExpenseList from "../../components/Expense/ExpenseList";
 import DeleteAlert from "../../components/DeleteAlert";
+import { downloadExcelFile } from "../../utils/downloadFile";
 
 function Expense() {
   useUserAuth();
@@ -91,23 +92,11 @@ function Expense() {
 
   async function handleDownloadExpenseDetails() {
     try {
-      const response = await axiosInstance.get(
+      await downloadExcelFile(
         API_PATHS.EXPENSE.DOWNLOAD_EXPENSE,
-        {
-          responseType: "blob",
-        },
+        "expense_details.xlsx",
       );
-
-      const url = window.URL.createObjectURL(new Blob([response.data]));
-      const link = document.createElement("a");
-      link.href = url;
-      link.setAttribute("download", "expense_details.xlsx");
-      document.body.appendChild(link);
-      link.click();
-      link.parentNode.removeChild(link);
-      window.URL.revokeObjectURL(url);
-    } catch (err) {
-      console.error("Error downloading expense details:", err);
+    } catch {
       toast.error("Failed to download expense details. Please try again.");
     }
   }

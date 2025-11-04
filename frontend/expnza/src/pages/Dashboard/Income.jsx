@@ -9,6 +9,7 @@ import toast from "react-hot-toast";
 import IncomeList from "../../components/Income/IncomeList";
 import DeleteAlert from "../../components/DeleteAlert";
 import { useUserAuth } from "../../hooks/useUserAuth";
+import { downloadExcelFile } from "../../utils/downloadFile";
 
 function Income() {
   useUserAuth();
@@ -94,23 +95,11 @@ function Income() {
 
   async function handleDownloadIncomeDetails() {
     try {
-      const response = await axiosInstance.get(
+      await downloadExcelFile(
         API_PATHS.INCOME.DOWNLOAD_INCOME,
-        {
-          responseType: "blob",
-        },
+        "income_details.xlsx",
       );
-
-      const url = window.URL.createObjectURL(new Blob([response.data]));
-      const link = document.createElement("a");
-      link.href = url;
-      link.setAttribute("download", "income_details.xlsx");
-      document.body.appendChild(link);
-      link.click();
-      link.parentNode.removeChild(link);
-      window.URL.revokeObjectURL(url);
-    } catch (err) {
-      console.error("Error downloading income details:", err);
+    } catch {
       toast.error("Failed to download income details. Please try again.");
     }
   }
