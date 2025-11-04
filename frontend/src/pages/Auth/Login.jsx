@@ -57,9 +57,9 @@ function Login() {
 
   return (
     <AuthLayout>
-      <div className="lg:w-[70%] h3/4 md:h-full flex flex-col justify-center">
+      <div className="h3/4 flex flex-col justify-center md:h-full lg:w-[70%]">
         <h3 className="text-xl font-semibold text-black">Welcome Back</h3>
-        <p className="text-sm text-slate-700 mt-[5px] mb-6">
+        <p className="mt-[5px] mb-6 text-sm text-slate-700">
           Please enter your details to log in
         </p>
 
@@ -79,15 +79,15 @@ function Login() {
             type="password"
           />
 
-          {error && <p className="text-red-500 text-xs pb-2.5 ">{error}</p>}
+          {error && <p className="pb-2.5 text-xs text-red-500">{error}</p>}
 
           <button type="submit" className="btn-primary">
             LOGIN
           </button>
 
-          <p className="text-[13px] text-slate-800 mt-3">
+          <p className="mt-3 text-[13px] text-slate-800">
             Don't have an account?{" "}
-            <Link className="font-medium text-primary underline" to="/signUp">
+            <Link className="text-primary font-medium underline" to="/signUp">
               Sign Up
             </Link>
           </p>

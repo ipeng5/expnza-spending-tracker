@@ -32,7 +32,7 @@ function Input({ value, onChange, label, placeholder, type }) {
           ) : (
             <FaRegEyeSlash
               size={22}
-              className="text-slate-400 cursor-pointer"
+              className="cursor-pointer text-slate-400"
               onClick={toggleShowPassword}
             />
           ))}

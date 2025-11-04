@@ -24,7 +24,7 @@ function ProfilePhotoSelector({ image, setImage }) {
   }
 
   return (
-    <div className="flex justify-center mb-6">
+    <div className="mb-6 flex justify-center">
       <input
         type="file"
         accept="image/*"
@@ -34,11 +34,11 @@ function ProfilePhotoSelector({ image, setImage }) {
       />
 
       {!image ? (
-        <div className="w-20 h-20 flex items-center justify-center bg-indigo-100 rounded-full relative">
-          <LuUser className="text-4xl text-primary" />
+        <div className="relative flex h-20 w-20 items-center justify-center rounded-full bg-indigo-100">
+          <LuUser className="text-primary text-4xl" />
           <button
             type="button"
-            className="w-8 h-8 flex items-center justify-center bg-primary text-white rounded-full absolute -bottom-1 -right-1 hover:cursor-pointer"
+            className="bg-primary absolute -right-1 -bottom-1 flex h-8 w-8 items-center justify-center rounded-full text-white hover:cursor-pointer"
             onClick={onChooseFile}
           >
             <LuUpload />
@@ -49,11 +49,11 @@ function ProfilePhotoSelector({ image, setImage }) {
           <img
             src={previewUrl}
             alt="Profile photo"
-            className="w-20 h-20 rounded-full object-cover"
+            className="h-20 w-20 rounded-full object-cover"
           />
           <button
             type="button"
-            className="w-8 h-8 flex items-center justify-center bg-red-500 text-white rounded-full absolute -bottom-1 -right-1 hover:cursor-pointer"
+            className="absolute -right-1 -bottom-1 flex h-8 w-8 items-center justify-center rounded-full bg-red-500 text-white hover:cursor-pointer"
             onClick={handleRemoveImage}
           >
             <LuTrash />
