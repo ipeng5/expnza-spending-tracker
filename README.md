@@ -7,6 +7,13 @@ A full-stack web application for tracking personal expenses and income, built wi
 - **Frontend**: [https://expnza-frontend.onrender.com](https://expnza-frontend.onrender.com)
 - **Backend API**: [https://expnza-backend.onrender.com](https://expnza-backend.onrender.com)
 
+## 🔍 Demo Account
+
+For quick testing without registration:
+
+**Email:** `demo@expnza.com`  
+**Password:** `demo1234`
+
 ## ✨ Features
 
 - 📊 Track expenses and income with detailed categories
